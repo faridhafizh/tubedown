@@ -1,0 +1,217 @@
+.hacker-terminal {
+  background: #0c0c0c;
+  color: #00ff41;
+  font-family: 'Courier New', 'Fira Code', 'Consolas', monospace;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-header {
+  margin-bottom: 20px;
+}
+
+.ascii-art {
+  color: #00ff41;
+  font-size: 12px;
+  line-height: 1.2;
+  margin: 0 0 10px 0;
+  text-shadow: 0 0 5px #00ff41;
+}
+
+.status-bar {
+  display: flex;
+  gap: 15px;
+  padding: 8px 15px;
+  background: #1a1a1a;
+  border: 1px solid #00ff41;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.status-led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff0000;
+  display: inline-block;
+  margin-right: 5px;
+  box-shadow: 0 0 5px #ff0000;
+}
+
+.status-led.online {
+  background: #00ff41;
+  box-shadow: 0 0 10px #00ff41;
+}
+
+.divider {
+  color: #333;
+}
+
+.terminal-body {
+  flex: 1;
+  background: #0c0c0c;
+  border: 1px solid #00ff41;
+  border-radius: 4px;
+  padding: 15px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.terminal-output {
+  margin-bottom: 20px;
+}
+
+.log-line {
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.log-line .prompt {
+  color: #00ff41;
+  margin-right: 8px;
+}
+
+.log-line.system .system-text {
+  color: #00bfff;
+}
+
+.log-line.error .error-text {
+  color: #ff4444;
+}
+
+.log-line.success .success-text {
+  color: #00ff41;
+}
+
+.task-progress {
+  margin: 15px 0;
+  padding: 10px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+.task-header {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.task-id {
+  color: #ffaa00;
+}
+
+.task-title {
+  color: #00ff41;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-status {
+  color: #00bfff;
+}
+
+.progress-bar-container {
+  background: #0c0c0c;
+  border: 1px solid #00ff41;
+  height: 24px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #00ff41, #00aa2b);
+  height: 100%;
+  transition: width 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.progress-text {
+  color: #000;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.task-info {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #888;
+}
+
+.terminal-input-area {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  background: #1a1a1a;
+  border: 1px solid #00ff41;
+  border-radius: 4px;
+}
+
+.input-prompt {
+  color: #00ff41;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #00ff41;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.terminal-input::placeholder {
+  color: #006600;
+}
+
+.help-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0c0c0c;
+  border: 2px solid #00ff41;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+  z-index: 1000;
+}
+
+.help-panel pre {
+  color: #00ff41;
+  margin: 0;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+/* Scrollbar Styling */
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: #0c0c0c;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: #00ff41;
+  border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: #00aa2b;
+}
