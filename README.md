@@ -1,11 +1,12 @@
-# 🖥️ YT-Hacker: Parallel YouTube Downloader Terminal
+# 🖥️ YT-Hacker - Parallel YouTube Downloader
 
-> ⚡ A hacker-themed terminal UI for downloading YouTube videos in parallel using **Vue 3 / React + Python FastAPI**
+> ⚡ A sleek **hacker-themed terminal UI** for downloading YouTube videos at maximum speed with parallel processing.
 
-![Version](https://img.shields.io/badge/version-1.0.0-00ff41?style=flat-square)  
-![Python](https://img.shields.io/badge/python-3.10+-blue?style=flat-square)  
-![Vue](https://img.shields.io/badge/vue-3.x-42b883?style=flat-square)  
-![React](https://img.shields.io/badge/react-18.x-61dafb?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.0.0-00ff41?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square)
+![Vue](https://img.shields.io/badge/Vue.js-3.x-42b883?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
 ---
 
