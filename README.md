@@ -1,4 +1,4 @@
-# 🖥️ YT-Hacker - Parallel YouTube Downloader
+# 🖥️ Tubedown - Parallel YouTube Downloader
 
 > ⚡ A sleek **hacker-themed terminal UI** for downloading YouTube videos at maximum speed with parallel processing.
 
