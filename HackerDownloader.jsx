@@ -318,13 +318,13 @@ const HackerDownloader = () => {
     <div className="hacker-terminal">
       {/* Header */}
       <div className="terminal-header">
-        <pre className="ascii-art">{asciiArt}</pre>
+        <pre className="ascii-art" aria-hidden="true">{asciiArt}</pre>
         <div className="status-bar">
-          <span className={`status-led ${backendOnline ? 'online' : ''}`}></span>
+          <span className={`status-led ${backendOnline ? 'online' : ''}`} aria-hidden="true"></span>
           <span>{backendOnline ? 'SYS.ONLINE' : 'SYS.OFFLINE'}</span>
-          <span className="divider">|</span>
+          <span className="divider" aria-hidden="true">|</span>
           <span>DOWNLOADS: {activeDownloads}/{maxParallel}</span>
-          <span className="divider">|</span>
+          <span className="divider" aria-hidden="true">|</span>
           <span>{currentTime}</span>
         </div>
       </div>
@@ -332,10 +332,10 @@ const HackerDownloader = () => {
       {/* Terminal Body */}
       <div className="terminal-body" ref={terminalBodyRef}>
         {/* Output Logs */}
-        <div className="terminal-output">
+        <div className="terminal-output" role="log" aria-live="polite">
           {logs.map((log, idx) => (
             <div key={idx} className={`log-line ${log.type}`}>
-              <span className="prompt">&gt;</span>
+              <span className="prompt" aria-hidden="true">&gt;</span>
               <span className={`${log.type}-text`}>{log.message}</span>
             </div>
           ))}
@@ -345,11 +345,11 @@ const HackerDownloader = () => {
         {tasks.map(task => (
           <div key={task.id} className="task-progress">
             <div className="task-header">
-              <span className="task-id">[TASK_{task.id.slice(0, 8)}]</span>
+              <span className="task-id" aria-hidden="true">[TASK_{task.id.slice(0, 8)}]</span>
               <span className="task-title">{task.title || 'Fetching info...'}</span>
               <span className="task-status">{task.status}</span>
             </div>
-            <div className="progress-bar-container">
+            <div className="progress-bar-container" role="progressbar" aria-valuenow={task.percent} aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar" style={{ width: `${task.percent}%` }}>
                 <span className="progress-text">{task.percent}%</span>
               </div>
@@ -363,7 +363,7 @@ const HackerDownloader = () => {
 
         {/* Input Area */}
         <div className="terminal-input-area">
-          <span className="input-prompt">$</span>
+          <span className="input-prompt" aria-hidden="true">$</span>
           <input
             ref={inputRef}
             value={currentInput}
@@ -373,6 +373,7 @@ const HackerDownloader = () => {
             className="terminal-input"
             type="text"
             placeholder="Enter YouTube URL or command..."
+            aria-label="Terminal Input"
             autoFocus
           />
         </div>
