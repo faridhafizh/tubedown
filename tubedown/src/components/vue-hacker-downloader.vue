@@ -2,13 +2,13 @@
   <div class="hacker-terminal">
     <!-- Header Matrix Effect -->
     <div class="terminal-header">
-      <pre class="ascii-art">{{ asciiArt }}</pre>
+      <pre class="ascii-art" aria-hidden="true">{{ asciiArt }}</pre>
       <div class="status-bar">
-        <span class="status-led" :class="{ online: backendOnline }"></span>
+        <span class="status-led" :class="{ online: backendOnline }" aria-hidden="true"></span>
         <span>{{ backendOnline ? 'SYS.ONLINE' : 'SYS.OFFLINE' }}</span>
-        <span class="divider">|</span>
+        <span class="divider" aria-hidden="true">|</span>
         <span>DOWNLOADS: {{ activeDownloads }}/{{ maxParallel }}</span>
-        <span class="divider">|</span>
+        <span class="divider" aria-hidden="true">|</span>
         <span>{{ currentTime }}</span>
       </div>
     </div>
@@ -16,9 +16,9 @@
     <!-- Main Terminal Area -->
     <div class="terminal-body" ref="terminalBody">
       <!-- Output Logs -->
-      <div class="terminal-output">
+      <div class="terminal-output" role="log" aria-live="polite">
         <div v-for="(log, idx) in logs" :key="idx" :class="['log-line', log.type]">
-          <span class="prompt">></span>
+          <span class="prompt" aria-hidden="true">></span>
           <span v-if="log.type === 'system'" class="system-text">{{ log.message }}</span>
           <span v-else-if="log.type === 'error'" class="error-text">{{ log.message }}</span>
           <span v-else-if="log.type === 'success'" class="success-text">{{ log.message }}</span>
@@ -29,11 +29,11 @@
       <!-- Download Progress Bars -->
       <div v-for="task in tasks" :key="task.id" class="task-progress">
         <div class="task-header">
-          <span class="task-id">[TASK_{{ task.id.slice(0, 8) }}]</span>
+          <span class="task-id" aria-hidden="true">[TASK_{{ task.id.slice(0, 8) }}]</span>
           <span class="task-title">{{ task.title || 'Fetching info...' }}</span>
           <span class="task-status">{{ task.status }}</span>
         </div>
-        <div class="progress-bar-container">
+        <div class="progress-bar-container" role="progressbar" :aria-valuenow="task.percent" aria-valuemin="0" aria-valuemax="100">
           <div class="progress-bar" :style="{ width: task.percent + '%' }">
             <span class="progress-text">{{ task.percent }}%</span>
           </div>
@@ -46,7 +46,7 @@
 
       <!-- Input Area -->
       <div class="terminal-input-area">
-        <span class="input-prompt">$</span>
+        <span class="input-prompt" aria-hidden="true">$</span>
         <input
           ref="inputField"
           v-model="currentInput"
@@ -55,6 +55,7 @@
           class="terminal-input"
           type="text"
           placeholder="Enter YouTube URL or command..."
+          aria-label="Terminal Input"
           autofocus
         />
       </div>
