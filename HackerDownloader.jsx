@@ -374,6 +374,10 @@ const HackerDownloader = () => {
             type="text"
             placeholder="Enter YouTube URL or command..."
             aria-label="Terminal Input"
+            autoComplete="off"
+            spellCheck={false}
+            autoCorrect="off"
+            autoCapitalize="off"
             autoFocus
           />
         </div>
