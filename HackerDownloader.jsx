@@ -44,7 +44,7 @@ const HackerDownloader = () => {
 ║  /exit, quit     - Close terminal (refresh page)              ║
 ║  [URL]           - Paste YouTube URL to start download        ║
 ╠═══════════════════════════════════════════════════════════════╣
-║  Press ESC to close this panel                                ║
+║  Press ESC or click here to close                             ║
 ╚═══════════════════════════════════════════════════════════════╝
 `;
 
@@ -385,7 +385,20 @@ const HackerDownloader = () => {
 
       {/* Help Panel */}
       {showHelp && (
-        <div className="help-panel">
+        <div
+          className="help-panel"
+          onClick={() => setShowHelp(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setShowHelp(false);
+            }
+          }}
+          role="dialog"
+          aria-label="Help Panel"
+          tabIndex="0"
+          style={{ cursor: 'pointer' }}
+        >
           <pre>{helpText}</pre>
         </div>
       )}
