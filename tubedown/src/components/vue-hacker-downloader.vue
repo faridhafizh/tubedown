@@ -56,6 +56,10 @@
           type="text"
           placeholder="Enter YouTube URL or command..."
           aria-label="Terminal Input"
+          autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
+          autocapitalize="off"
           autofocus
         />
       </div>
