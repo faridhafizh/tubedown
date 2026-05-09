@@ -66,7 +66,17 @@
     </div>
 
     <!-- Help Panel -->
-    <div class="help-panel" v-if="showHelp">
+    <div
+      class="help-panel"
+      v-if="showHelp"
+      @click="showHelp = false"
+      @keydown.enter.prevent="showHelp = false"
+      @keydown.space.prevent="showHelp = false"
+      role="dialog"
+      aria-label="Help Panel"
+      tabindex="0"
+      style="cursor: pointer;"
+    >
       <pre>{{ helpText }}</pre>
     </div>
   </div>
@@ -118,7 +128,7 @@ const helpText = `
 ║  /exit, quit     - Close terminal (refresh page)              ║
 ║  [URL]           - Paste YouTube URL to start download        ║
 ╠═══════════════════════════════════════════════════════════════╣
-║  Press ESC to close this panel                                ║
+║  Press ESC or click here to close                             ║
 ╚═══════════════════════════════════════════════════════════════╝
 `
 

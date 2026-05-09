@@ -1,1 +1,5 @@
 ## 2026-05-08 - Disable Native Browser Input Features on Terminal Emulators\n**Learning:** Terminal emulators that use native HTML input fields (like `<input type="text">`) suffer from poor UX if native browser features like autocomplete dropdowns and red squiggly spellcheck lines are left enabled, as they break the terminal illusion.\n**Action:** Always disable these features using `autocomplete="off"` (`autoComplete` in React), `spellcheck="false"` (`spellCheck` in React), `autocorrect="off"` (`autoCorrect` in React), and `autocapitalize="off"` (`autoCapitalize` in React) on web-based terminal inputs.
+
+## 2024-05-20 - Mobile Trap in Keyboard-only Modals
+**Learning:** Help panels or modal dialogs that specify "Press ESC to close" without providing an explicit close button or click-to-dismiss functionality trap mobile touch-device users, as they lack an ESC key.
+**Action:** Always ensure modals have alternative dismissal methods (like clicking the modal, a close button, or clicking outside) and update the helper text to indicate these alternatives to the user.
