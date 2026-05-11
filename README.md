@@ -1,6 +1,10 @@
-# 🖥️ Tubedown - Parallel YouTube Downloader
+<p align="center">
+  <img src="tubedown_logo.svg" alt="Tubedown logo" width="680"/>
+</p>
 
-> ⚡ A sleek **hacker-themed terminal UI** for downloading YouTube videos at maximum speed with parallel processing.
+# Tubedown
+
+A parallel YouTube downloader with a hacker-themed terminal UI, real-time WebSocket progress, and support for both Vue 3 and React frontends.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-00ff41?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square)
@@ -10,99 +14,72 @@
 
 ---
 
-## 📸 Preview
+## Table of Contents
 
-> Hacker-style terminal interface with real-time download progress (Matrix vibes 🟢)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Authentication](#authentication)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Terminal Commands](#terminal-commands)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
 ---
 
-## 📦 Project Structure
+## Features
+
+- **Real-time progress** via WebSocket — live speed, ETA, and status per download
+- **Parallel downloads** — up to 3 concurrent downloads by default
+- **Terminal-style UI** — Matrix-green aesthetic with a command-driven interface
+- **Automatic cookie authentication** — reads from Chrome, Firefox, Edge, Brave, and more
+- **Auto-save** — downloads are saved to `~/Downloads/YT-Hacker`
+- **Robust error handling** — auto-reconnect on WebSocket drop
+
+---
+
+## Project Structure
 
 ```
-project/
-├── backend.py                  # FastAPI backend
-├── vue-hacker-downloader.vue   # Vue 3 component
-├── HackerDownloader.jsx        # React component
-├── HackerDownloader.css        # React styles
+tubedown/
+├── backend.py                  # FastAPI backend with WebSocket support
+├── vue-hacker-downloader.vue   # Vue 3 frontend component
+├── HackerDownloader.jsx        # React frontend component
+├── HackerDownloader.css        # React component styles
 └── README.md
 ```
 
 ---
 
-## ⚡ Features
+## Requirements
 
-- 🟢 Real-time progress via WebSocket  
-- 🔄 Parallel downloads (max 3 concurrent)  
-- 🎨 Hacker terminal UI (Matrix-green aesthetic)  
-- 📊 Live progress bars (speed, ETA, status)  
-- 🛡️ Robust error handling & auto-reconnect  
-- 📁 Auto-save to `~/Downloads/YT-Hacker`  
+- Python 3.10+
+- Node.js 18+ (for frontend)
+- [FFmpeg](https://ffmpeg.org/download.html) — required for video/audio merging
 
 ---
 
-## 🚀 Quick Start
+## Installation
 
-### 1️⃣ Install Backend Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Or manually:
+### 1. Install Python dependencies
 
 ```bash
 pip install fastapi uvicorn yt-dlp websockets browser-cookie3
 ```
 
-> ⚠️ **Requirement:** Install FFmpeg
-Download: https://ffmpeg.org
-
----
-
-### 🔐 YouTube Authentication (Bot Protection)
-
-YouTube now requires authentication for some videos. The backend **automatically detects and uses your browser cookies** for authentication.
-
-**Supported Browsers:**
-- Chrome, Edge, Firefox, Brave, Opera, Opera GX, Vivaldi
-
-**How it works:**
-- The backend automatically tries to extract cookies from your installed browsers
-- No manual setup required - just make sure you're logged into YouTube in one of your browsers
-- If no browser cookies are found, you'll see a warning message
-
-**Alternative: Manual Cookie Export**
-
-If automatic detection fails, you can manually export cookies:
-
-```bash
-# Using yt-dlp's cookie export feature
-yt-dlp --cookies-from-browser chrome  # Extract from Chrome
-# OR
-yt-dlp --cookies cookies.txt "URL"   # Use a cookie file
-```
-
-To use a cookie file, add this to `backend.py` in the `ydl_opts`:
-```python
-"cookies": "path/to/cookies.txt"
-```
-
----
-
-### 2️⃣ Run Backend
+### 2. Start the backend
 
 ```bash
 python backend.py
 ```
 
-Backend runs at:  
-👉 http://localhost:8000
+The backend runs at `http://localhost:8000`.
 
----
+### 3. Set up the frontend
 
-### 3️⃣ Run Frontend
-
-#### Option A — Vue 3 (Vite)
+**Vue 3 (Vite)**
 
 ```bash
 npm create vite@latest yt-hacker-vue -- --template vue
@@ -110,16 +87,13 @@ cd yt-hacker-vue
 npm install
 ```
 
-- Copy `vue-hacker-downloader.vue` → `src/components/`
-- Import & use it inside `App.vue`
+Copy `vue-hacker-downloader.vue` into `src/components/`, import it in `App.vue`, then:
 
 ```bash
 npm run dev
 ```
 
----
-
-#### Option B — React (Vite)
+**React (Vite)**
 
 ```bash
 npm create vite@latest yt-hacker-react -- --template react
@@ -127,44 +101,54 @@ cd yt-hacker-react
 npm install
 ```
 
-- Copy:
-  - `HackerDownloader.jsx`
-  - `HackerDownloader.css`
-- Import component in your app
+Copy `HackerDownloader.jsx` and `HackerDownloader.css` into your project, import the component, then:
 
 ```bash
 npm run dev
 ```
 
----
-
-## 🎮 Terminal Commands
-
-| Command              | Description                          |
-|---------------------|--------------------------------------|
-| `[YouTube URL]`     | Start download                       |
-| `/help`, `help`     | Show help panel                      |
-| `/clear`, `clear`   | Clear terminal                       |
-| `/status`           | Check backend & download status      |
-| `/exit`, `quit`     | Exit (refresh page)                  |
-| `Ctrl + C`          | Clear input                          |
-| `ESC`               | Close help panel                     |
+Open `http://localhost:5173` in your browser.
 
 ---
 
-## 🔧 Configuration
+## Authentication
 
-### Backend (`backend.py`)
+YouTube requires authentication for some videos. Tubedown automatically reads cookies from your installed browsers — no manual setup needed. Supported browsers: Chrome, Edge, Firefox, Brave, Opera, Opera GX, Vivaldi.
+
+**If automatic detection fails**, export cookies manually:
+
+```bash
+yt-dlp --cookies-from-browser chrome
+# or export to a file
+yt-dlp --cookies cookies.txt "YOUR_URL"
+```
+
+Then add the following to `ydl_opts` in `backend.py`:
 
 ```python
-from pathlib import Path
-
-DOWNLOAD_DIR = Path.home() / "Downloads" / "YT-Hacker"
+"cookies": "path/to/cookies.txt"
 ```
 
 ---
 
-### Frontend
+## Usage
+
+1. Start the backend: `python backend.py`
+2. Start the frontend: `npm run dev`
+3. Open `http://localhost:5173`
+4. Paste a YouTube URL into the terminal input and press Enter
+
+---
+
+## Configuration
+
+**Backend** — change the download directory in `backend.py`:
+
+```python
+DOWNLOAD_DIR = Path.home() / "Downloads" / "YT-Hacker"
+```
+
+**Frontend** — adjust the maximum number of parallel downloads:
 
 ```javascript
 // Vue
@@ -176,36 +160,34 @@ const maxParallel = 3;
 
 ---
 
-## 🧪 Troubleshooting
+## Terminal Commands
 
-| Issue                | Solution |
-|---------------------|----------|
-| Backend offline      | Ensure `python backend.py` is running on port 8000 |
-| yt-dlp not found     | `pip install yt-dlp` |
-| ffmpeg not found     | Install FFmpeg |
-| CORS error           | Ensure frontend connects to `http://localhost:8000` |
-| **"Sign in to confirm you're not a bot"** | Make sure you're logged into YouTube in your browser. The app will automatically use your browser cookies. |
-| **No browser cookies detected** | Install Chrome/Edge/Firefox and log into YouTube, or manually export cookies (see Authentication section) |
-| **browser_cookie3 import error** | Run `pip install browser-cookie3` |
-
----
-
-## 🎯 Usage
-
-1. Start backend  
-2. Run frontend (Vue or React)  
-3. Open browser (`http://localhost:5173`)  
-4. Paste a YouTube URL  
-5. 🚀 Downloads start in parallel!
+| Command         | Description                        |
+|-----------------|------------------------------------|
+| `[YouTube URL]` | Start a download                   |
+| `help`          | Show the help panel                |
+| `clear`         | Clear the terminal output          |
+| `/status`       | Check backend and download status  |
+| `quit`          | Exit (refreshes the page)          |
+| `Ctrl+C`        | Clear the current input            |
+| `ESC`           | Close the help panel               |
 
 ---
 
-## 📝 License
+## Troubleshooting
 
-MIT License — free to use, modify, and distribute.
+| Issue | Solution |
+|-------|----------|
+| Backend offline | Run `python backend.py` and ensure port 8000 is free |
+| `yt-dlp` not found | Run `pip install yt-dlp` |
+| `ffmpeg` not found | Install FFmpeg from [ffmpeg.org](https://ffmpeg.org/download.html) |
+| CORS error | Confirm the frontend is connecting to `http://localhost:8000` |
+| "Sign in to confirm you're not a bot" | Log into YouTube in your browser; cookies are used automatically |
+| No browser cookies detected | Log into YouTube in a supported browser, or use a manual cookie file |
+| `browser_cookie3` import error | Run `pip install browser-cookie3` |
 
 ---
 
-## 💡 Credits
+## License
 
-Made with ⚡ by **Hacker Terminal Studio**
+MIT License — free to use, modify, and distribute. See [LICENSE](LICENSE) for details.
