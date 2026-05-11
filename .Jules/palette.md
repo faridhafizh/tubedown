@@ -3,3 +3,7 @@
 ## 2024-05-20 - Mobile Trap in Keyboard-only Modals
 **Learning:** Help panels or modal dialogs that specify "Press ESC to close" without providing an explicit close button or click-to-dismiss functionality trap mobile touch-device users, as they lack an ESC key.
 **Action:** Always ensure modals have alternative dismissal methods (like clicking the modal, a close button, or clicking outside) and update the helper text to indicate these alternatives to the user.
+
+## 2026-05-11 - Dynamic Elements for ARIA Context
+**Learning:** When creating repeating dynamic elements (like progress bars for downloads), using generic `aria-label` or failing to associate context makes the experience confusing for screen readers. By dynamically generating IDs (e.g., `id=\"task-title-${task.id}\"`) and referencing them via `aria-labelledby`, we ensure each progress bar is correctly associated with its specific dynamic task name, providing clear context.
+**Action:** When mapping over dynamic data to create accessible components like progress bars or form groups, always dynamically generate and link IDs and `aria-labelledby`/`for` attributes based on the unique item ID. Also ensure custom dialog components fully support accessibility patterns, including `aria-modal=\"true\"` and explicit exit triggers like `Escape`.

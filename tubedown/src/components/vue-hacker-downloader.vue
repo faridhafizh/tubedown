@@ -30,10 +30,10 @@
       <div v-for="task in tasks" :key="task.id" class="task-progress">
         <div class="task-header">
           <span class="task-id" aria-hidden="true">[TASK_{{ task.id.slice(0, 8) }}]</span>
-          <span class="task-title">{{ task.title || 'Fetching info...' }}</span>
+          <span :id="'task-title-' + task.id" class="task-title">{{ task.title || 'Fetching info...' }}</span>
           <span class="task-status">{{ task.status }}</span>
         </div>
-        <div class="progress-bar-container" role="progressbar" :aria-valuenow="task.percent" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar-container" role="progressbar" :aria-labelledby="'task-title-' + task.id" :aria-valuenow="task.percent" aria-valuemin="0" aria-valuemax="100">
           <div class="progress-bar" :style="{ width: task.percent + '%' }">
             <span class="progress-text">{{ task.percent }}%</span>
           </div>
@@ -72,7 +72,9 @@
       @click="showHelp = false"
       @keydown.enter.prevent="showHelp = false"
       @keydown.space.prevent="showHelp = false"
+      @keydown.esc.prevent="showHelp = false"
       role="dialog"
+      aria-modal="true"
       aria-label="Help Panel"
       tabindex="0"
       style="cursor: pointer;"
