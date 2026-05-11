@@ -346,10 +346,10 @@ const HackerDownloader = () => {
           <div key={task.id} className="task-progress">
             <div className="task-header">
               <span className="task-id" aria-hidden="true">[TASK_{task.id.slice(0, 8)}]</span>
-              <span className="task-title">{task.title || 'Fetching info...'}</span>
+              <span id={`task-title-${task.id}`} className="task-title">{task.title || 'Fetching info...'}</span>
               <span className="task-status">{task.status}</span>
             </div>
-            <div className="progress-bar-container" role="progressbar" aria-valuenow={task.percent} aria-valuemin="0" aria-valuemax="100">
+            <div className="progress-bar-container" role="progressbar" aria-labelledby={`task-title-${task.id}`} aria-valuenow={task.percent} aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar" style={{ width: `${task.percent}%` }}>
                 <span className="progress-text">{task.percent}%</span>
               </div>
@@ -389,12 +389,13 @@ const HackerDownloader = () => {
           className="help-panel"
           onClick={() => setShowHelp(false)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
               e.preventDefault();
               setShowHelp(false);
             }
           }}
           role="dialog"
+          aria-modal="true"
           aria-label="Help Panel"
           tabIndex="0"
           style={{ cursor: 'pointer' }}
