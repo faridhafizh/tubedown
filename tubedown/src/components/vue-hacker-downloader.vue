@@ -566,6 +566,10 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
+.terminal-input-area:focus-within {
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
 .input-prompt {
   color: #00ff41;
   margin-right: 10px;
@@ -596,6 +600,11 @@ onUnmounted(() => {
   padding: 20px;
   box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
   z-index: 1000;
+}
+
+.help-panel:focus-visible {
+  outline: 2px solid #00ff41;
+  outline-offset: 4px;
 }
 
 .help-panel pre {
