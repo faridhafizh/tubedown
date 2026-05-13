@@ -302,7 +302,17 @@ const HackerDownloader = () => {
 
     inputRef.current?.focus();
 
-    const handleClick = () => inputRef.current?.focus();
+    const handleClick = (e) => {
+      // Don't steal focus if user is selecting text
+      if (window.getSelection()?.toString()) {
+        return;
+      }
+      // Don't steal focus if clicking the help panel or other interactive elements
+      if (e.target.closest('.help-panel')) {
+        return;
+      }
+      inputRef.current?.focus();
+    };
     document.addEventListener('click', handleClick);
 
     return () => {
