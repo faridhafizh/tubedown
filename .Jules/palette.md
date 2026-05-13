@@ -11,3 +11,6 @@
 ## 2026-05-12 - Preserving Focus Visibility on Custom Inputs
 **Learning:** When styling custom input areas (like terminal prompts) where the default browser outline is removed (`outline: none`), keyboard users lose track of focus. Using `:focus-within` on the container restores a visible focus indicator without breaking the custom styling. Similarly, focusable non-input elements (like dialogs) need explicit `:focus-visible` styles to guide keyboard navigation.
 **Action:** Whenever `outline: none` is used, implement a custom focus indicator using `:focus-visible` for individual elements or `:focus-within` for composite input components.
+## 2024-05-13 - Terminal Input Focus prevents text selection
+**Learning:** Adding a global click listener to forcefully refocus the terminal input field prevents users from selecting and copying text (like logs or error messages) from the terminal, which is a critical user action in terminal interfaces.
+**Action:** When implementing global "click anywhere to focus" behavior, always check if the user is currently selecting text (`window.getSelection().toString()`) and only force focus if the selection is empty. Also ignore clicks on other interactive elements (like modals or buttons) that might need focus.

@@ -392,15 +392,26 @@ onMounted(() => {
   })
 
   // Click anywhere to focus input
-  document.addEventListener('click', () => {
-    inputField.value?.focus()
-  })
+  document.addEventListener('click', handleGlobalClick)
 })
+
+function handleGlobalClick(e) {
+  // Don't steal focus if user is selecting text
+  if (window.getSelection()?.toString()) {
+    return
+  }
+  // Don't steal focus if clicking the help panel or other interactive elements
+  if (e.target.closest('.help-panel')) {
+    return
+  }
+  inputField.value?.focus()
+}
 
 onUnmounted(() => {
   if (ws) ws.close()
   if (reconnectTimer) clearTimeout(reconnectTimer)
   if (timeTimer) clearInterval(timeTimer)
+  document.removeEventListener('click', handleGlobalClick)
 })
 </script>
 
