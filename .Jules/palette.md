@@ -7,3 +7,7 @@
 ## 2026-05-11 - Dynamic Elements for ARIA Context
 **Learning:** When creating repeating dynamic elements (like progress bars for downloads), using generic `aria-label` or failing to associate context makes the experience confusing for screen readers. By dynamically generating IDs (e.g., `id=\"task-title-${task.id}\"`) and referencing them via `aria-labelledby`, we ensure each progress bar is correctly associated with its specific dynamic task name, providing clear context.
 **Action:** When mapping over dynamic data to create accessible components like progress bars or form groups, always dynamically generate and link IDs and `aria-labelledby`/`for` attributes based on the unique item ID. Also ensure custom dialog components fully support accessibility patterns, including `aria-modal=\"true\"` and explicit exit triggers like `Escape`.
+
+## 2026-05-12 - Preserving Focus Visibility on Custom Inputs
+**Learning:** When styling custom input areas (like terminal prompts) where the default browser outline is removed (`outline: none`), keyboard users lose track of focus. Using `:focus-within` on the container restores a visible focus indicator without breaking the custom styling. Similarly, focusable non-input elements (like dialogs) need explicit `:focus-visible` styles to guide keyboard navigation.
+**Action:** Whenever `outline: none` is used, implement a custom focus indicator using `:focus-visible` for individual elements or `:focus-within` for composite input components.
