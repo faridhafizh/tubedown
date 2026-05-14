@@ -14,7 +14,7 @@
     </div>
 
     <!-- Main Terminal Area -->
-    <div class="terminal-body" ref="terminalBody">
+    <div class="terminal-body" ref="terminalBody" tabindex="0" aria-label="Terminal output view">
       <!-- Output Logs -->
       <div class="terminal-output" role="log" aria-live="polite">
         <div v-for="(log, idx) in logs" :key="idx" :class="['log-line', log.type]">
@@ -467,6 +467,11 @@ onUnmounted(() => {
   max-height: calc(100vh - 200px);
 }
 
+.terminal-body:focus-visible {
+  outline: 2px solid #00ff41;
+  outline-offset: -2px;
+}
+
 .terminal-output {
   margin-bottom: 20px;
 }
@@ -587,7 +592,7 @@ onUnmounted(() => {
 }
 
 .terminal-input::placeholder {
-  color: #006600;
+  color: rgba(0, 255, 65, 0.5);
 }
 
 .help-panel {

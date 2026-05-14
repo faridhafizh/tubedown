@@ -11,3 +11,7 @@
 ## 2026-05-12 - Preserving Focus Visibility on Custom Inputs
 **Learning:** When styling custom input areas (like terminal prompts) where the default browser outline is removed (`outline: none`), keyboard users lose track of focus. Using `:focus-within` on the container restores a visible focus indicator without breaking the custom styling. Similarly, focusable non-input elements (like dialogs) need explicit `:focus-visible` styles to guide keyboard navigation.
 **Action:** Whenever `outline: none` is used, implement a custom focus indicator using `:focus-visible` for individual elements or `:focus-within` for composite input components.
+
+## 2026-05-13 - Accessible Scrollable Regions & Placeholder Contrast
+**Learning:** Custom scrollable regions (like terminal output bodies defined with `overflow-y: auto`) are inaccessible to keyboard-only users unless they receive focus. Additionally, ultra-dark colors used for hacker themes (e.g., `#006600` on `#1a1a1a`) often fail WCAG contrast requirements for placeholder text, making inputs appear broken or empty to users with low vision.
+**Action:** Always add `tabindex="0"`, a descriptive `aria-label`, and a clear `:focus-visible` outline to custom scrollable containers. Adjust placeholder colors using semi-transparent high-contrast colors (e.g., `rgba(0, 255, 65, 0.5)`) to maintain aesthetics while meeting contrast standards.

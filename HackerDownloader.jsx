@@ -330,7 +330,7 @@ const HackerDownloader = () => {
       </div>
 
       {/* Terminal Body */}
-      <div className="terminal-body" ref={terminalBodyRef}>
+      <div className="terminal-body" ref={terminalBodyRef} tabIndex="0" aria-label="Terminal output view">
         {/* Output Logs */}
         <div className="terminal-output" role="log" aria-live="polite">
           {logs.map((log, idx) => (
