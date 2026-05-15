@@ -15,3 +15,7 @@
 ## 2026-05-13 - Accessible Scrollable Regions & Placeholder Contrast
 **Learning:** Custom scrollable regions (like terminal output bodies defined with `overflow-y: auto`) are inaccessible to keyboard-only users unless they receive focus. Additionally, ultra-dark colors used for hacker themes (e.g., `#006600` on `#1a1a1a`) often fail WCAG contrast requirements for placeholder text, making inputs appear broken or empty to users with low vision.
 **Action:** Always add `tabindex="0"`, a descriptive `aria-label`, and a clear `:focus-visible` outline to custom scrollable containers. Adjust placeholder colors using semi-transparent high-contrast colors (e.g., `rgba(0, 255, 65, 0.5)`) to maintain aesthetics while meeting contrast standards.
+
+## 2025-02-20 - Contextual terminal input and text selection fix
+**Learning:** Aggressive global click-to-focus listeners designed to keep the user engaged in a primary input field can inadvertently break standard browser functionality like text selection, leading to user frustration. Furthermore, static terminal placeholders and prompts can be confusing when the app context changes to expect specific structured input (e.g., waiting for an option number).
+**Action:** Always check `\!window.getSelection().toString()` before programmatically forcing focus on a click event. For terminal-like interfaces, bind dynamic state variables to update input placeholders, prompts, and `aria-label`s to accurately reflect the current required context or "mode" of the app.
