@@ -302,7 +302,11 @@ const HackerDownloader = () => {
 
     inputRef.current?.focus();
 
-    const handleClick = () => inputRef.current?.focus();
+    const handleClick = () => {
+      // Don't focus input if user is selecting text
+      if (window.getSelection()?.toString().length > 0) return;
+      inputRef.current?.focus();
+    };
     document.addEventListener('click', handleClick);
 
     return () => {
@@ -362,13 +366,12 @@ const HackerDownloader = () => {
         ))}
 
         {/* Input Area */}
-        <div className="terminal-input-area">
+        <form className="terminal-input-area" onSubmit={(e) => { e.preventDefault(); handleCommand(); }}>
           <span className="input-prompt" aria-hidden="true">$</span>
           <input
             ref={inputRef}
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleCommand()}
             onKeyUp={handleKeyDown}
             className="terminal-input"
             type="text"
@@ -380,7 +383,7 @@ const HackerDownloader = () => {
             autoCapitalize="off"
             autoFocus
           />
-        </div>
+        </form>
       </div>
 
       {/* Help Panel */}

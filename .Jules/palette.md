@@ -15,3 +15,7 @@
 ## 2026-05-13 - Accessible Scrollable Regions & Placeholder Contrast
 **Learning:** Custom scrollable regions (like terminal output bodies defined with `overflow-y: auto`) are inaccessible to keyboard-only users unless they receive focus. Additionally, ultra-dark colors used for hacker themes (e.g., `#006600` on `#1a1a1a`) often fail WCAG contrast requirements for placeholder text, making inputs appear broken or empty to users with low vision.
 **Action:** Always add `tabindex="0"`, a descriptive `aria-label`, and a clear `:focus-visible` outline to custom scrollable containers. Adjust placeholder colors using semi-transparent high-contrast colors (e.g., `rgba(0, 255, 65, 0.5)`) to maintain aesthetics while meeting contrast standards.
+
+## 2024-05-16 - Semantic Forms for Mobile Keyboards & Global Focus Management
+**Learning:** Terminal-style custom inputs that rely solely on `keydown.enter` fail to trigger the "Go" / "Enter" action button correctly on mobile software keyboards. They must be wrapped in a semantic `<form>` tag with an `onSubmit` handler to work correctly across devices. Also, aggressive global "click anywhere to focus" handlers ruin text-selection UX, making it impossible for users to copy terminal logs without bringing up their keyboard.
+**Action:** Always wrap interactive text inputs in `<form>` elements to enable native submit events (`@submit.prevent` or `onSubmit`). Furthermore, check if text is selected (`window.getSelection()?.toString().length > 0`) before forcibly giving focus to an input field in global event listeners.

@@ -45,12 +45,11 @@
       </div>
 
       <!-- Input Area -->
-      <div class="terminal-input-area">
+      <form class="terminal-input-area" @submit.prevent="handleCommand">
         <span class="input-prompt" aria-hidden="true">$</span>
         <input
           ref="inputField"
           v-model="currentInput"
-          @keydown.enter="handleCommand"
           @keydown="handleKeyDown"
           class="terminal-input"
           type="text"
@@ -62,7 +61,7 @@
           autocapitalize="off"
           autofocus
         />
-      </div>
+      </form>
     </div>
 
     <!-- Help Panel -->
@@ -393,6 +392,8 @@ onMounted(() => {
 
   // Click anywhere to focus input
   document.addEventListener('click', () => {
+    // Don't focus input if user is selecting text
+    if (window.getSelection()?.toString().length > 0) return;
     inputField.value?.focus()
   })
 })
