@@ -33,7 +33,7 @@
           <span :id="'task-title-' + task.id" class="task-title">{{ task.title || 'Fetching info...' }}</span>
           <span class="task-status">{{ task.status }}</span>
         </div>
-        <div class="progress-bar-container" role="progressbar" :aria-labelledby="'task-title-' + task.id" :aria-valuenow="task.percent" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar-container" role="progressbar" tabindex="0" :aria-labelledby="'task-title-' + task.id" :aria-valuenow="task.percent" aria-valuemin="0" aria-valuemax="100">
           <div class="progress-bar" :style="{ width: task.percent + '%' }">
             <span class="progress-text">{{ task.percent }}%</span>
           </div>
@@ -68,6 +68,7 @@
     <!-- Help Panel -->
     <div
       class="help-panel"
+      ref="helpPanel"
       v-if="showHelp"
       @click="showHelp = false"
       @keydown.enter.prevent="showHelp = false"
@@ -85,7 +86,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, computed, nextTick, watch } from 'vue'
 
 // ==================== STATE ====================
 const backendOnline = ref(false)
@@ -95,6 +96,7 @@ const currentInput = ref('')
 const showHelp = ref(false)
 const terminalBody = ref(null)
 const inputField = ref(null)
+const helpPanel = ref(null)
 const currentTime = ref('')
 const pendingUrl = ref(null)
 const availableFormats = ref([])
@@ -374,6 +376,16 @@ function updateTime() {
   const now = new Date()
   currentTime.value = now.toLocaleTimeString('en-US', { hour12: false })
 }
+
+watch(showHelp, (newValue) => {
+  nextTick(() => {
+    if (newValue) {
+      helpPanel.value?.focus()
+    } else {
+      inputField.value?.focus()
+    }
+  })
+})
 
 // ==================== LIFECYCLE ====================
 onMounted(() => {
