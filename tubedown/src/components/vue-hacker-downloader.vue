@@ -46,7 +46,7 @@
 
       <!-- Input Area -->
       <div class="terminal-input-area">
-        <span class="input-prompt" aria-hidden="true">$</span>
+        <span class="input-prompt" aria-hidden="true">{{ pendingUrl ? '?' : '$' }}</span>
         <input
           ref="inputField"
           v-model="currentInput"
@@ -54,8 +54,8 @@
           @keydown="handleKeyDown"
           class="terminal-input"
           type="text"
-          placeholder="Enter YouTube URL or command..."
-          aria-label="Terminal Input"
+          :placeholder="pendingUrl ? 'Enter quality number or B...' : 'Enter YouTube URL or command...'"
+          :aria-label="pendingUrl ? 'Quality Selection Input' : 'Terminal Input'"
           autocomplete="off"
           spellcheck="false"
           autocorrect="off"
@@ -391,9 +391,11 @@ onMounted(() => {
     inputField.value?.focus()
   })
 
-  // Click anywhere to focus input
+  // Click anywhere to focus input, unless text is selected
   document.addEventListener('click', () => {
-    inputField.value?.focus()
+    if (!window.getSelection().toString()) {
+      inputField.value?.focus()
+    }
   })
 })
 
