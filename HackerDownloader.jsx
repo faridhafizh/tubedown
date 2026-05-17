@@ -14,6 +14,7 @@ const HackerDownloader = () => {
 
   const terminalBodyRef = useRef(null);
   const inputRef = useRef(null);
+  const helpPanelRef = useRef(null);
   const wsRef = useRef(null);
   const reconnectTimerRef = useRef(null);
   const timeTimerRef = useRef(null);
@@ -292,6 +293,14 @@ const HackerDownloader = () => {
 
   // ==================== EFFECTS ====================
   useEffect(() => {
+    if (showHelp) {
+      helpPanelRef.current?.focus();
+    } else {
+      inputRef.current?.focus();
+    }
+  }, [showHelp]);
+
+  useEffect(() => {
     addLog('[BOOT] Initializing YT-Hacker Terminal v1.0...', 'system');
     addLog('[BOOT] Loading kernel modules...', 'system');
     addLog('[BOOT] Establishing backend connection...', 'system');
@@ -349,7 +358,7 @@ const HackerDownloader = () => {
               <span id={`task-title-${task.id}`} className="task-title">{task.title || 'Fetching info...'}</span>
               <span className="task-status">{task.status}</span>
             </div>
-            <div className="progress-bar-container" role="progressbar" aria-labelledby={`task-title-${task.id}`} aria-valuenow={task.percent} aria-valuemin="0" aria-valuemax="100">
+            <div className="progress-bar-container" role="progressbar" tabIndex="0" aria-labelledby={`task-title-${task.id}`} aria-valuenow={task.percent} aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar" style={{ width: `${task.percent}%` }}>
                 <span className="progress-text">{task.percent}%</span>
               </div>
@@ -387,6 +396,7 @@ const HackerDownloader = () => {
       {showHelp && (
         <div
           className="help-panel"
+          ref={helpPanelRef}
           onClick={() => setShowHelp(false)}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
